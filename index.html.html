@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Evolução | Jordan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --accent: #2563eb;
+            --text-main: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.8s ease;
+        }
+
+        .slide-enter {
+            animation: slideFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .img-container {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e2e8f0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        /* BONUS STYLES */
+        .bonus-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(.33);
+            }
+
+            80%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .radar-line {
+            animation: rotate 4s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="progress-bar w-full">
+        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="glass-nav sticky top-0 z-[100] py-4 px-8 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                    <polyline points="13 2 13 9 20 9" />
+                </svg>
+            </div>
+            <div>
+                <span id="nav-title" class="font-extrabold text-lg tracking-tight block leading-none">Minha
+                    Evolução</span>
+                <span id="nav-subtitle" class="text-[10px] uppercase tracking-widest font-bold text-blue-600">Evolução
+                    Técnica</span>
+            </div>
+        </div>
+        <div class="text-right">
+            <p id="nav-author" class="text-sm font-black italic leading-none">Jordan</p>
+            <p id="slide-counter" class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Slide 01
+                de 16</p>
+        </div>
+    </nav>
+
+    <!-- Main Presentation Area -->
+    <main id="main-area"
+        class="h-[calc(100vh-72px)] w-full flex items-center justify-center p-6 md:p-12 transition-all duration-700">
+        <div id="slide-container"
+            class="w-full max-w-7xl h-full flex flex-col md:flex-row items-center gap-8 md:gap-16 slide-enter z-10">
+            <!-- Content will be injected here -->
+        </div>
+    </main>
+
+    <!-- Bottom Controls -->
+    <div
+        class="fixed bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-8 px-6 py-4 bg-white/90 glass shadow-2xl rounded-3xl border border-slate-100 z-[1000]">
+        <button onclick="prevSlide()"
+            class="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+        </button>
+        <div id="slide-indicators" class="flex gap-2"></div>
+        <button onclick="nextSlide()"
+            class="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        const basePath = "img/evolution/";
+        const slides = [
+            {
+                date: "03 de Fevereiro",
+                title: "Portal de Documentação",
+                text: "Concluí a documentação oficial do SmartRoute! Estruturei tudo lá: desde a parte técnica e segurança anti-fraude até a gestão de custos.",
+                img: basePath + "docum.jpeg"
+            },
+            {
+                date: "05 de Fevereiro",
+                title: "Avatares e Gamificação",
+                text: "Adicionei um sistema de Avatar Customizável pensando na UX e no engajamento. A ideia foi humanizar mais a plataforma e tmb adicionei um sistema de gamificação em que, a cada ronda concluída os usuários desbloqueiam pontos para conseguir recompensas (como as molduras e os acessórios pro personagem). Isso é bom pois cria um incentivo pra pessoa usar o sistema e aumenta a sensação de progresso do pessoal.",
+                img: basePath + "gami.jpeg"
+            },
+            {
+                date: "11 de Fevereiro",
+                title: "Painel do Cliente",
+                text: "Desenvolvi o Painel do Cliente: Onde ele tem uma visão geral e simplificada do sistema. O foco é melhorar a experiência do cliente, deixando o painel principal apenas para modificações técnicas.",
+                img: basePath + "client.png"
+            },
+            {
+                date: "13 de Fevereiro",
+                title: "Detecção Inteligente",
+                text: "Tabelas e fluxos da Lógica de Detecção Inteligente e Cooldown. Estruturei a 'engrenagem' que garante a veracidade das rondas, impedindo qualquer tipo de burla no sistema.",
+                img: basePath + "fluxo.png"
+            },
+            {
+                date: "18 de Fevereiro",
+                title: "Relatório PDF",
+                text: "Implementei a exportação de relatórios em PDF. Tanto o Admin quanto o Cliente conseguem baixar um relatório profissional com todos os dados de turnos, rondas e alertas.",
+                img: basePath + "relatorio.png"
+            },
+            {
+                date: "19 de Fevereiro",
+                title: "Gestão de Turnos",
+                text: "Definição de turnos, quantidade de rondas e tempo no Admin. Também finalizei a interface que mostra para o agente quando as rondas não foram cumpridas.",
+                img: basePath + "turno.png"
+            },
+            {
+                date: "27 de Fevereiro",
+                title: "Auditoria de Alertas",
+                text: "Agora admins podem marcar alertas como 'Vistos'. Eles são movidos para uma pasta separada automaticamente, despoluindo a área de monitoramento e facilitando auditorias.",
+                img: basePath + "aviso.jpeg"
+            },
+            {
+                date: "12 de Março",
+                title: "Material Comercial",
+                text: "Adicionei fotos e vídeo demonstrativo do SmartRoute e do SunDrowsy na apresentação comercial.",
+                img: basePath + "apresentacao.png"
+            },
+            {
+                date: "01 de Abril",
+                title: "Rondas Livres",
+                text: "Sistema de Rondas Livres com pontuação dinâmica! O sistema aprende com o histórico de rondas feitas para calcular os pontos ideais (IA), analisando trajeto e fotos tiradas. Também adicionei o 'Iniciar Expediente' para os vigias direto no app.",
+                img: basePath + "maps.jpeg"
+            },
+            {
+                date: "01 de Abril",
+                title: "Alertas com Som",
+                text: "O painel agora emite som quando há risco. O sistema solta um som quando detecta vigilantes inativos, e um aviso flutuante sobe na tela mostrando os dados.",
+                img: basePath + "som.png"
+            },
+            {
+                date: "02 de Abril",
+                title: "Configuração GPS",
+                text: "Liberei a opção de localização 'Permitir o tempo todo' no app. Um ajuste fundamental nas configurações do sistema para garantir o rastreio constante em background.",
+                img: basePath + "WhatsApp Image 2026-05-07 at 14.28.20 (2).jpeg"
+            },
+            {
+                date: "08 de Abril",
+                title: "Background e LGPD",
+                text: "Localização em segundo plano rodando! Adicionei também os termos da LGPD para garantir a segurança jurídica no tratamento de dados sensíveis dos agentes.",
+                img: basePath + "lgpd.jpeg"
+            },
+            {
+                date: "09 de Abril",
+                title: "Gestão de Incidentes",
+                text: "Exemplo prático de detecção de incidentes: alerta automático disparado ao detectar 2 OFFs consecutivos de um agente, facilitando a resposta imediata dos responsáveis.",
+                img: basePath + "incid.jpeg"
+            },
+            {
+                date: "17 de Abril",
+                title: "Dashboard em Real-Time",
+                text: "Melhorias no Dashboard: filtros por nome, cards de estatísticas e o Indicador de Pulso Verde para identificar instantaneamente quais agentes estão online no momento.",
+                img: basePath + "dash.jpeg"
+            },
+            {
+                date: "23 de Abril",
+                title: "Refinamento de UX",
+                text: "Refinamentos no design: menu lateral recolhível, ordem de exibição corrigida e acesso rápido aos dados do agente direto pelo destaque no painel.",
+                img: basePath + "refi.jpeg"
+            },
+            {
+                date: "29 de Abril",
+                title: "Marca D'água e Admin",
+                text: "Novidades em progresso: marca d'água automática nas fotos para auditoria, opção de 'Pular Ponto' justificável e encerramento de turnos remoto pelos admins.",
+                img: basePath + "admin.jpeg"
+            },
+            {
+                date: "30 de Abril",
+                title: "Unificação de Gestão",
+                text: "Uma grande atualização: unifiquei o cadastro de Projetos e Roteiros em uma única sessão. A navegação e a usabilidade para o admin melhoraram muito!",
+                img: basePath + "gestao.jpeg"
+            },
+            {
+                date: "Maio de 2026",
+                title: "Estabilidade e Segurança",
+                text: "Segurança sempre reforçada, GPS mais estável em 2º plano e IA aprimorada. O SmartRoute está a cada dia mais robusto!",
+                img: "https://i.postimg.cc/4dNYygZr/Smart-Route-Logo.png",
+                isFinal: true
+            },
+            { date: "BÔNUS 01", title: "Isolamento de Sessão por UID", text: "Segurança extrema para aparelhos compartilhados. Agora, cada agente tem seu próprio espaço isolado de dados, eliminando qualquer risco de contaminação de informações entre turnos.", isBonus: true, icon: 'security' },
+            { date: "BÔNUS 02", title: "Calibração On-Demand", text: "Precisão absoluta. O GPS agora é forçado a recalibrar exatamente no segundo em que a foto é tirada, garantindo que o rastro no mapa seja fiel à realidade.", isBonus: true, icon: 'radar' },
+            { date: "BÔNUS 03", title: "Fotos via WhatsApp", text: "Agilidade na comunicação. Agora os registros das rondas podem ser enviados instantaneamente para grupos de supervisão, mantendo todos informados em tempo real.", isBonus: true, icon: 'social' }
+        ];
+
+        let currentSlide = 0;
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('slide-counter').innerText = `Slide ${String(currentSlide + 1).padStart(2, '0')} de ${slides.length}`;
+        }
+
+        function getBonusSVG(icon) {
+            const icons = {
+                security: `<div class="relative w-64 h-64 animate-float"><div class="absolute inset-0 bg-blue-500/10 rounded-full pulse-ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg></div>`,
+                radar: `<div class="relative w-64 h-64 animate-float"><div class="absolute inset-0 border-2 border-blue-400/20 rounded-full"></div><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg></div>`,
+                social: `<div class="relative w-64 h-64 animate-float"><div class="absolute inset-0 bg-green-500/10 rounded-full pulse-ring"></div><svg viewBox="0 0 24 24" fill="#22c55e" class="w-full h-full drop-shadow-lg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.396.015 12.03a11.934 11.934 0 001.608 6.007L0 24l6.135-1.61a11.893 11.893 0 005.917 1.583h.005c6.637 0 12.032-5.396 12.035-12.032.001-3.218-1.248-6.242-4.895-9.426z"/></svg></div>`
+            };
+            return icons[icon] || '';
+        }
+
+        function renderSlide() {
+            const slide = slides[currentSlide];
+            const container = document.getElementById('slide-container');
+            const body = document.body;
+
+            container.classList.remove('slide-enter');
+            void container.offsetWidth;
+            container.classList.add('slide-enter');
+
+            if (slide.isBonus) {
+                body.style.backgroundColor = '#f8fafc';
+                const mainArea = document.getElementById('main-area');
+                mainArea.style.background = 'linear-gradient(to bottom right, #f8fafc, #eff6ff)';
+
+                document.getElementById('nav-title').style.color = '#0f172a';
+                document.getElementById('nav-author').style.color = '#0f172a';
+                document.getElementById('nav-subtitle').style.color = '#2563eb';
+
+                container.innerHTML = `
+                    <div class="flex-1 max-w-2xl space-y-8">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-200">
+                            ✨ UPGRADE TÉCNICO
+                        </div>
+                        <h1 class="text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter text-slate-900">${slide.title}</h1>
+                        <div class="w-20 h-2 bg-blue-600 rounded-full shadow-lg"></div>
+                        <p class="text-xl md:text-3xl text-slate-600 leading-relaxed font-semibold italic">"${slide.text}"</p>
+                    </div>
+                    <div class="w-full md:w-2/5 flex items-center justify-center">
+                        ${getBonusSVG(slide.icon)}
+                    </div>`;
+            } else {
+                body.style.backgroundColor = '#f8fafc';
+                const mainArea = document.getElementById('main-area');
+                mainArea.style.background = 'linear-gradient(to bottom right, #f8fafc, #eff6ff)';
+
+                document.getElementById('nav-title').style.color = '#0f172a';
+                document.getElementById('nav-author').style.color = '#0f172a';
+                document.getElementById('nav-subtitle').style.color = '#2563eb';
+
+                if (slide.isFinal) {
+                    container.innerHTML = `
+                        <div class="flex-1 max-w-2xl space-y-8">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest">${slide.date}</div>
+                            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight tracking-tighter">${slide.title}</h1>
+                            <div class="w-20 h-2 bg-green-500 rounded-full"></div>
+                            <p class="text-xl md:text-2xl text-slate-600 leading-relaxed font-semibold italic">"${slide.text}"</p>
+                        </div>
+                        <div class="w-full md:w-2/5 flex items-center justify-center">
+                            <div class="w-64 h-64 bg-white rounded-[50px] shadow-2xl flex items-center justify-center p-8 border-4 border-blue-50">
+                                <img src="${slide.img}" class="w-full h-auto animate-pulse">
+                            </div>
+                        </div>`;
+                } else {
+                    container.innerHTML = `
+                        <div class="flex-1 max-w-xl space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest">${slide.date}</div>
+                            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight tracking-tighter">${slide.title}</h1>
+                            <div class="w-12 h-1.5 bg-blue-600 rounded-full"></div>
+                            <p class="text-lg md:text-xl text-slate-600 leading-relaxed font-medium italic">"${slide.text}"</p>
+                        </div>
+                        <div class="w-full md:w-3/5 h-full flex items-center justify-center">
+                            <div class="img-container w-full h-full max-h-[75vh] rounded-[32px] overflow-hidden p-3 shadow-2xl border border-white">
+                                <img src="${slide.img}" alt="${slide.title}" class="w-full h-full object-contain rounded-[24px]">
+                            </div>
+                        </div>`;
+                }
+            }
+            renderIndicators();
+            updateProgress();
+        }
+
+        function renderIndicators() {
+            document.getElementById('slide-indicators').innerHTML = slides.map((_, i) => `<div class="w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'w-6 bg-blue-600' : 'bg-slate-200'}"></div>`).join('');
+        }
+
+        function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; renderSlide(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; renderSlide(); } }
+        window.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+        renderSlide();
+    </script>
+</body>
+
+</html>
